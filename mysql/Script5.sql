@@ -25,14 +25,14 @@ values ('{
     }
   ]
 }');
-select * from t2;
-select JSON_EXTRACT(`JSON`, "$.Cliente[0].Nome") as Cliente from t2;
-select JSON_EXTRACT(`JSON`, "$.Cliente[1].Nome") as Cliente from t2;
-select JSON_EXTRACT(`JSON`, "$.Cliente[0].Hobby[0]") as Cliente from t2;
+SELECT * FROM t2;
+SELECT JSON_EXTRACT(`JSON`, "$.Cliente[0].Nome") AS Cliente FROM t2;
+SELECT JSON_EXTRACT(`JSON`, "$.Cliente[1].Nome") AS Cliente FROM t2;
+SELECT JSON_EXTRACT(`JSON`, "$.Cliente[0].Hobby[0]") AS Cliente FROM t2;
 
-create table t3 (`JSON` json);
-insert into t3
-values ('{
+CREATE TABLE t3 (`JSON` JSON);
+INSERT INTO t3
+VALUES ('{
   "Cliente": [
     {
       "Nome": "Gustavo",
@@ -44,13 +44,13 @@ values ('{
     }
   ]
 }');
-select JSON_EXTRACT(`JSON`, "$.Cliente[0].Nome") as Cliente,
-       JSON_EXTRACT(`JSON`, "$.Cliente[0].Hobby") as Hobby from t3;
+SELECT JSON_EXTRACT(`JSON`, "$.Cliente[0].Nome") AS Cliente,
+       JSON_EXTRACT(`JSON`, "$.Cliente[0].Hobby") AS Hobby FROM t3;
 
 # Cria uma tabela a partir do JSON
 SELECT jsonTable.NOME, jsonTable.HOBBY
 FROM t3
-         CROSS JOIN JSON_TABLE (
-        JSON_EXTRACT(`JSON`, "$.Cliente"), "$[*]"
-        COLUMNS (NOME VARCHAR(10) PATH "$.Nome", HOBBY VARCHAR(10) PATH "$.Hobby")
-    ) jsonTable;
+CROSS JOIN JSON_TABLE (
+    JSON_EXTRACT(`JSON`, "$.Cliente"), "$[*]"
+    COLUMNS (NOME VARCHAR(10) PATH "$.Nome", HOBBY VARCHAR(10) PATH "$.Hobby")
+) jsonTable;

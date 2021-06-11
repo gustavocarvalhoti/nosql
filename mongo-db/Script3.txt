@@ -1,0 +1,37 @@
+db.funcionario.find({})
+// Não mostra o campo ID
+db.funcionario.find({}, {"_id": 0})
+// Mostrar _id e Primeiro_Nome
+db.funcionario.find({}, {"Primeiro_Nome": 1})
+db.funcionario.find({}, {"Primeiro_Nome": 1}).limit(3)
+// ASC
+db.funcionario.find({}, {"Primeiro_Nome": 1}).sort({"Primeiro_Nome": 1})
+// DESC
+db.funcionario.find({}, {"Primeiro_Nome": 1}).sort({"Primeiro_Nome": -1})
+// Mostrar dados array
+db.funcionario.find({}, {"Dependentes.Nome_Dependente": 1})
+// Filtro
+db.funcionario.find({"Sexo": "F"})
+db.funcionario.find({"Salario": 36000})
+// Maior
+db.funcionario.find({"Salario": {$gt: 30000}}).sort({"Salario": 1})
+// Maior ou igual
+db.funcionario.find({"Salario": {$gte: 30000}}).sort({"Salario": 1})
+// Menor
+db.funcionario.find({"Salario": {$lt: 30000}}).sort({"Salario": 1})
+// Menor ou igual
+db.funcionario.find({"Salario": {$lte: 30000}}).sort({"Salario": 1})
+// Para data
+db.funcionario
+    .find({"Data_Nascimento": {$gt: new Date("1988-01-01")}})
+    .sort({"Data_Nascimento": 1})
+// IN
+db.funcionario.find({"Primeiro_Nome": {$in: ["Fatima", "Tonico"]}})
+// Filtro Lógico - AND/OR
+db.funcionario.find({"Sexo": "F", "Salario": 36000})
+db.funcionario.find({$and: [{"Sexo": "F"}, {"Salario": 36000}]})
+db.funcionario.find({$or: [{"Sexo": "F"}, {"Salario": 36000}]})
+// IS NULL - Não possui dependente
+db.funcionario.find({"Dependentes": {$exists: false}})
+// IS NOT NULL - Possui dependente
+db.funcionario.find({"Dependentes": {$exists: true}})
