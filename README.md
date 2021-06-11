@@ -54,8 +54,9 @@ Temos o nó e a relação, exemplo facebook que um segue o outro
 ## Install
 
 ````
+### MySQL
 docker run --name database-mysql --network host -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
 
-### Mongo NoSQL
+### Mongo
 docker run --name node-mongoose -p 27017:27017 -d mongo
 ````
